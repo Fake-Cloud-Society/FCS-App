@@ -15,8 +15,7 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      },
-      "package": "com.fcs.app"
+      }
     },
     "web": {
       "bundler": "metro",
@@ -49,9 +48,6 @@
     "extra": {
       "router": {
         "origin": false
-      },
-      "eas": {
-        "projectId": "74846d21-1802-4e2a-afa6-f7f8a41408cc"
       }
     }
   }
