@@ -2,15 +2,43 @@ import {VStack} from "@/components/ui/vstack";
 import {Button, ButtonText} from "@/components/ui/button";
 import {Text} from "@/components/ui/text";
 import {Heading} from "@/components/ui/heading";
-import React from "react";
+import React, {useEffect} from "react";
 import {useRouter} from "expo-router";
 import {SafeAreaView} from "@/components/ui/safe-area-view";
 import {ScrollView} from "@/components/ui/scroll-view";
 import {HStack} from "@/components/ui/hstack";
 import {Image} from "@/components/ui/image";
+import * as SecureStore from 'expo-secure-store';
+import {ACCESS_TOKEN} from "@/constants/StorageKeys";
+import {jwtDecode} from "jwt-decode";
 
 export default function Index() {
   const router = useRouter();
+
+  useEffect(() => {
+    SecureStore.getItemAsync(ACCESS_TOKEN)
+      .then(async (token) => {
+        if (token) {
+          const decoded = jwtDecode(token);
+          const url = 'https://fcs.webservice.odeiapp.fr/users?email=' + (decoded as any).username;
+          try {
+            const response = await fetch(url, {
+              method: 'GET',
+              headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`,
+              }
+            });
+            const user = (await response.json())[0];
+            console.log(user);
+            router.replace("/dashboard/dashboard-example");
+          } catch (e) {
+            console.error(e);
+          }
+        }
+      });
+  }, [])
+
   return (
     <SafeAreaView className="w-full h-full">
       <ScrollView

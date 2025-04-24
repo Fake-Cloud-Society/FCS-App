@@ -24,6 +24,8 @@ import {AlertTriangle} from "lucide-react-native";
 import {GoogleIcon} from "@/assets/auth/icons/google";
 import {Pressable} from "@/components/ui/pressable";
 import {useRouter} from "expo-router";
+import * as SecureStore from 'expo-secure-store';
+import {ACCESS_TOKEN} from "@/constants/StorageKeys";
 
 const loginSchema = z.object({
   email: z.string().min(1, "Email is required").email(),
@@ -51,7 +53,7 @@ export default function SignIn() {
   const onSubmit = async (data: LoginSchemaType) => {
     setValidated({emailValid: true, passwordValid: true});
     setLoading(true)
-    const { email, password } = data;
+    const { email, password, rememberme } = data;
     const url = 'https://fcs.webservice.odeiapp.fr/auth/login';
     try {
       const response = await fetch(url, {
@@ -64,8 +66,10 @@ export default function SignIn() {
           password: password,
         }),
       });
-      const newUser = await response.json();
-      console.log(newUser);
+      const {access_token} = await response.json();
+      if (rememberme) {
+        await SecureStore.setItemAsync(ACCESS_TOKEN, access_token);
+      }
       reset();
       router.replace("/dashboard/dashboard-example");
     } catch (e) {
