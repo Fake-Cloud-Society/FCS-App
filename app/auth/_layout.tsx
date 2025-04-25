@@ -27,7 +27,7 @@ export default function AuthLayout() {
             />
           </VStack>
           <VStack
-            className="md:items-center md:justify-center flex-1 w-full px-4 py-8 md:gap-10 gap-16 md:m-auto md:w-1/2 h-full">
+            className="md:justify-center flex-1 px-4 py-8 gap-16 w-full h-full">
             <Stack screenOptions={{headerShown: false}}>
               <Stack.Screen name="signin"/>
               <Stack.Screen name="signup"/>
