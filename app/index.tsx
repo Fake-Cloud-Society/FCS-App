@@ -15,7 +15,7 @@ export default function Index() {
   const { signIn } = useSession();
 
   useEffect(() => {
-    signIn().then(() => router.replace("/dashboard/example"))
+    signIn().then(() => router.replace("/dashboard/home"))
   }, []);
   return (
     <SafeAreaView className="w-full h-full">
