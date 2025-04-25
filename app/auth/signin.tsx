@@ -67,7 +67,7 @@ export default function SignIn() {
       const newUser = await response.json();
       console.log(newUser);
       reset();
-      router.replace("/dashboard/dashboard-example");
+      router.replace("/dashboard/home");
     } catch (e) {
       setValidated({ emailValid: false, passwordValid: false });
     } finally {
