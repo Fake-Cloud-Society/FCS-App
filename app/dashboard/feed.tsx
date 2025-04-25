@@ -137,7 +137,7 @@ export default function Feed() {
                       height={100}
                       width={100}
                       source={item.bannerUri}
-                      alt={item.bannerUri}
+                      alt="an image"
                     />
                   </Box>
                   <VStack className="mt-4" space="md">
@@ -174,7 +174,7 @@ export default function Feed() {
                             height={100}
                             width={100}
                             source={item.bannerUri}
-                            alt={item.title}
+                            alt="an image"
                           />
                         </Box>
                         <VStack className="justify-between h-full" space="md">
