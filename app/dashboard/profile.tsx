@@ -157,6 +157,7 @@ export default function Profile() {
         <VStack className="h-full w-full pb-8" space="2xl">
           <Box className="relative w-full md:h-[478px] h-[380px]">
             <Image
+              className="object-cover h-full w-full"
               source={require("@/assets/profile/image2.png")}
               height={100}
               width={100}
@@ -250,6 +251,7 @@ export default function Profile() {
               <HStack space="2xl" className="items-center">
                 <Box className="md:h-20 md:w-20 h-10 w-10">
                   <Image
+                    className="object-cover h-full w-full"
                     source={require("@/assets/profile/image1.png")}
                     height={100}
                     width={100}
@@ -363,12 +365,6 @@ const ModalComponent = ({showModal, setShowModal,}: {
       <ModalBackdrop/>
       <ModalContent>
         <Box className={"w-full h-[215px] "}>
-          <Image
-            source={require("@/assets/profile/image2.png")}
-            height={100}
-            width={100}
-            alt="Banner Image"
-          />
         </Box>
         <Pressable
           className="absolute bg-background-500 rounded-full items-center justify-center h-8 w-8 right-6 top-44">
