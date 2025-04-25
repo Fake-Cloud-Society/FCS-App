@@ -13,8 +13,7 @@ import {
   FormControlLabelText,
 } from "@/components/ui/form-control";
 import {Input, InputField, InputIcon, InputSlot} from "@/components/ui/input";
-import {Checkbox, CheckboxIcon, CheckboxIndicator, CheckboxLabel,} from "@/components/ui/checkbox";
-import {ArrowLeftIcon, CheckIcon, EyeIcon, EyeOffIcon, Icon,} from "@/components/ui/icon";
+import {ArrowLeftIcon, EyeIcon, EyeOffIcon, Icon,} from "@/components/ui/icon";
 import {Button, ButtonIcon, ButtonText} from "@/components/ui/button";
 import {Keyboard} from "react-native";
 import {Controller, useForm} from "react-hook-form";
@@ -48,12 +47,12 @@ export default function SignIn() {
     passwordValid: true,
   });
   const [loading, setLoading] = useState(false);
-  const { signIn } = useSession();
+  const {signIn} = useSession();
 
   const onSubmit = async (data: LoginSchemaType) => {
     setValidated({emailValid: true, passwordValid: true});
     setLoading(true)
-    const { email, password } = data;
+    const {email, password} = data;
     const url = 'https://fcs.webservice.odeiapp.fr/auth/login';
     try {
       const response = await fetch(url, {
@@ -71,7 +70,7 @@ export default function SignIn() {
       await signIn();
       router.replace("/dashboard/home");
     } catch (e) {
-      setValidated({ emailValid: false, passwordValid: false });
+      setValidated({emailValid: false, passwordValid: false});
     } finally {
       setLoading(false);
     }
