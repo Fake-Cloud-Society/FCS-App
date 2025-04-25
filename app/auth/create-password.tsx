@@ -103,7 +103,7 @@ export default function CreatePassword() {
   };
   const router = useRouter();
   return (
-    <VStack className="max-w-[440px] w-full" space="md">
+    <VStack className="w-full" space="md">
       <VStack className="md:items-center" space="md">
         <Pressable
           onPress={() => {
