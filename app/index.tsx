@@ -11,32 +11,35 @@ import {Image} from "@/components/ui/image";
 import * as SecureStore from 'expo-secure-store';
 import {ACCESS_TOKEN} from "@/constants/StorageKeys";
 import {jwtDecode} from "jwt-decode";
+import {Platform} from "react-native";
 
 export default function Index() {
   const router = useRouter();
 
   useEffect(() => {
-    SecureStore.getItemAsync(ACCESS_TOKEN)
-      .then(async (token) => {
-        if (token) {
-          const decoded = jwtDecode(token);
-          const url = 'https://fcs.webservice.odeiapp.fr/users?email=' + (decoded as any).username;
-          try {
-            const response = await fetch(url, {
-              method: 'GET',
-              headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${token}`,
-              }
-            });
-            const user = (await response.json())[0];
-            console.log(user);
-            router.replace("/dashboard/dashboard-example");
-          } catch (e) {
-            console.error(e);
+    if (Platform.OS !== 'web') {
+      SecureStore.getItemAsync(ACCESS_TOKEN)
+        .then(async (token) => {
+          if (token) {
+            const decoded = jwtDecode(token);
+            const url = 'https://fcs.webservice.odeiapp.fr/users?email=' + (decoded as any).username;
+            try {
+              const response = await fetch(url, {
+                method: 'GET',
+                headers: {
+                  'Content-Type': 'application/json',
+                  'Authorization': `Bearer ${token}`,
+                }
+              });
+              const user = (await response.json())[0];
+              console.log(user);
+              router.replace("/dashboard/home");
+            } catch (e) {
+              console.error(e);
+            }
           }
-        }
-      });
+        });
+    }
   }, [])
 
   return (
