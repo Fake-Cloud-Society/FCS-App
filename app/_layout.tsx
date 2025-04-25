@@ -7,6 +7,7 @@ import React, {useEffect} from "react";
 import {GluestackUIProvider} from "@/components/ui/gluestack-ui-provider";
 import {useColorScheme} from "@/components/useColorScheme";
 import "../global.css";
+import {SessionProvider} from "@/components/ctx";
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -46,10 +47,12 @@ function RootLayoutNav() {
   return (
     <GluestackUIProvider mode={(colorScheme ?? "light") as "light" | "dark"}>
       <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
-        <Stack screenOptions={{headerShown: false}}>
-          <Stack.Screen name="auth"/>
-          <Stack.Screen name="dashboard/dashboard-example"/>
-        </Stack>
+        <SessionProvider>
+          <Stack screenOptions={{headerShown: false}}>
+            <Stack.Screen name="auth"/>
+            <Stack.Screen name="dashboard"/>
+          </Stack>
+        </SessionProvider>
       </ThemeProvider>
     </GluestackUIProvider>
   );

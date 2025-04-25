@@ -27,6 +27,7 @@ import { SafeAreaView } from "@/components/ui/safe-area-view";
 import { cn } from "@gluestack-ui/nativewind-utils/cn";
 import { Platform } from "react-native";
 import {useRouter} from "expo-router";
+import {useSession} from "@/components/ctx";
 type MobileHeaderProps = {
   title: string;
 };
@@ -281,7 +282,7 @@ function MobileFooter({ footerIcons }: { footerIcons: any }) {
             <Pressable
               className="px-0.5 flex-1 flex-col items-center"
               key={index}
-              onPress={() => router.push("/dashboard/dashboard-example")}
+              onPress={() => router.push("/dashboard/example")}
             >
               <Icon
                 as={item.iconName}
@@ -340,6 +341,8 @@ function MobileHeader(props: MobileHeaderProps) {
 }
 
 const MainContent = () => {
+  const { signOut, session } = useSession();
+  console.log(session)
   return (
     <Box className="flex-1 ">
       <ScrollView
@@ -354,6 +357,13 @@ const MainContent = () => {
           <Heading size="2xl" className="font-roboto">
             Welcome Alexander
           </Heading>
+
+          <Text
+            onPress={() => {
+              signOut();
+            }}>
+            Sign Out
+          </Text>
 
           <Grid className="gap-5" _extra={{className: ""}}>
             {HeadingCards.map((item, index) => {
@@ -590,7 +600,7 @@ const MainContent = () => {
   );
 };
 
-export default function DashboardExample() {
+export default function Example() {
   return (
     <SafeAreaView className="h-full w-full">
       <DashboardLayout title="Dashboard" isSidebarVisible={true}>

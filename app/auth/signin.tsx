@@ -26,11 +26,11 @@ import {Pressable} from "@/components/ui/pressable";
 import {useRouter} from "expo-router";
 import * as SecureStore from 'expo-secure-store';
 import {ACCESS_TOKEN} from "@/constants/StorageKeys";
+import {useSession} from "@/components/ctx";
 
 const loginSchema = z.object({
   email: z.string().min(1, "Email is required").email(),
-  password: z.string().min(1, "Password is required"),
-  rememberme: z.boolean().optional(),
+  password: z.string().min(1, "Password is required")
 });
 
 type LoginSchemaType = z.infer<typeof loginSchema>;
@@ -39,7 +39,6 @@ export default function SignIn() {
   const {
     control,
     handleSubmit,
-    reset,
     formState: {errors},
   } = useForm<LoginSchemaType>({
     resolver: zodResolver(loginSchema),
@@ -49,11 +48,12 @@ export default function SignIn() {
     passwordValid: true,
   });
   const [loading, setLoading] = useState(false);
+  const { signIn } = useSession();
 
   const onSubmit = async (data: LoginSchemaType) => {
     setValidated({emailValid: true, passwordValid: true});
     setLoading(true)
-    const { email, password, rememberme } = data;
+    const { email, password } = data;
     const url = 'https://fcs.webservice.odeiapp.fr/auth/login';
     try {
       const response = await fetch(url, {
@@ -67,11 +67,9 @@ export default function SignIn() {
         }),
       });
       const {access_token} = await response.json();
-      if (rememberme) {
-        await SecureStore.setItemAsync(ACCESS_TOKEN, access_token);
-      }
-      reset();
-      router.replace("/dashboard/dashboard-example");
+      await SecureStore.setItemAsync(ACCESS_TOKEN, access_token);
+      await signIn();
+      router.replace("/dashboard/example");
     } catch (e) {
       setValidated({ emailValid: false, passwordValid: false });
     } finally {
@@ -203,25 +201,6 @@ export default function SignIn() {
             </FormControlError>
           </FormControl>
           <HStack className="w-full justify-between ">
-            <Controller
-              name="rememberme"
-              defaultValue={false}
-              control={control}
-              render={({field: {onChange, value}}) => (
-                <Checkbox
-                  size="sm"
-                  value="Remember me"
-                  isChecked={value}
-                  onChange={onChange}
-                  aria-label="Remember me"
-                >
-                  <CheckboxIndicator>
-                    <CheckboxIcon as={CheckIcon}/>
-                  </CheckboxIndicator>
-                  <CheckboxLabel>Remember me</CheckboxLabel>
-                </Checkbox>
-              )}
-            />
             <Pressable onPress={() => router.push("/auth/forgot-password")}>
               <LinkText className="font-medium text-sm text-primary-700 group-hover/link:text-primary-600">
                 Forgot Password?
