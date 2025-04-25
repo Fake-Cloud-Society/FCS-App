@@ -134,6 +134,7 @@ export default function Feed() {
                 >
                   <Box className="w-full h-64 rounded">
                     <Image
+                      className="object-cover h-full w-full"
                       height={100}
                       width={100}
                       source={item.bannerUri}
@@ -171,6 +172,7 @@ export default function Feed() {
                       >
                         <Box className="relative h-full w-40 rounded">
                           <Image
+                            className="object-cover h-full w-full"
                             height={100}
                             width={100}
                             source={item.bannerUri}
