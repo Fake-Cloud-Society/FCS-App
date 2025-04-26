@@ -52,6 +52,7 @@ import {CameraSparklesIcon} from "@/assets/profile/icons/camera-sparkles";
 import {EditPhotoIcon} from "@/assets/profile/icons/edit-photo";
 import {isWeb} from "@gluestack-ui/nativewind-utils/IsWeb";
 import {Image} from "@/components/ui/image";
+import {useSession} from "@/components/ctx";
 
 interface UserStats {
   friends: string;
@@ -143,6 +144,7 @@ const accountData: AccountCardType[] = [
 ];
 export default function Profile() {
   const [showModal, setShowModal] = useState(false);
+  const { signOut } = useSession();
 
   return (
     <VStack className="h-full w-full mb-16 md:mb-0">
@@ -322,6 +324,9 @@ export default function Profile() {
                 );
               })}
             </VStack>
+            <Button onPress={() => signOut()}>
+              <ButtonText>Disconnect</ButtonText>
+            </Button>
           </VStack>
         </VStack>
       </ScrollView>
