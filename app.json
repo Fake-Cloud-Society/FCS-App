@@ -5,17 +5,19 @@
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
-    "scheme": "myapp",
+    "scheme": "fcs",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.eloilfrg.fcsapp"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.eloilfrg.fcsapp"
     },
     "web": {
       "bundler": "metro",
@@ -46,6 +48,22 @@
         {
           "configureAndroidBackup": true,
           "faceIDPermission": "Allow $(PRODUCT_NAME) to access your Face ID biometric data."
+        }
+      ],
+      [
+        "expo-dev-client",
+        {
+          "launchMode": "most-recent"
+        }
+      ],
+      [
+        "@bam.tech/react-native-app-security",
+        {
+          "sslPinning": {
+            "fcs.webservice.odeiapp.fr": [
+              "jb0DxEK3+kRHzAp4qLtrLzznFaz2OC8vxe3bzoNsoKo="
+            ]
+          }
         }
       ]
     ],
