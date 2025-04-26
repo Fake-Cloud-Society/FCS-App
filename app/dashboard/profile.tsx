@@ -144,7 +144,7 @@ const accountData: AccountCardType[] = [
 ];
 export default function Profile() {
   const [showModal, setShowModal] = useState(false);
-  const { signOut } = useSession();
+  const {signOut, session} = useSession();
 
   return (
     <VStack className="h-full w-full mb-16 md:mb-0">
@@ -185,10 +185,10 @@ export default function Profile() {
               </Avatar>
               <VStack className="gap-1 w-full items-center">
                 <Text size="2xl" className="font-roboto text-dark">
-                  Alexander Leslie
+                  {session.firstName} {session.lastName}
                 </Text>
                 <Text className="font-roboto text-sm text-typograpphy-700">
-                  United States
+                  {session.country}
                 </Text>
               </VStack>
               <>

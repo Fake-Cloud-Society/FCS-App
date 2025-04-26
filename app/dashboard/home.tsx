@@ -13,6 +13,7 @@ import {Grid, GridItem} from "@/components/ui/grid";
 import {Avatar, AvatarImage,} from "@/components/ui/avatar";
 import {CalendarIcon} from "@/assets/dashboard/icons/calendar";
 import {cn} from "@gluestack-ui/nativewind-utils/cn";
+import {useSession} from "@/components/ctx";
 
 interface CardData {
   bannerUri: string;
@@ -138,6 +139,8 @@ const ColleaguesCards: ColleaguesCardData[] = [
 ];
 
 export default function Home() {
+  const { session } = useSession();
+
   return (
     <Box className="flex-1 ">
       <ScrollView
@@ -150,7 +153,7 @@ export default function Home() {
       >
         <VStack className="p-4 pb-0 md:px-10 md:pt-6  w-full" space="2xl">
           <Heading size="2xl" className="font-roboto">
-            Welcome Alexander
+            Welcome { (session as any).firstName }
           </Heading>
 
           <Grid className="gap-5" _extra={{className: ""}}>

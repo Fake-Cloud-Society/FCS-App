@@ -1,5 +1,5 @@
-import { useContext, createContext, type PropsWithChildren } from 'react';
-import { useStorageState } from '@/hooks/useStorageState';
+import {createContext, type PropsWithChildren, useContext} from 'react';
+import {useStorageState} from '@/hooks/useStorageState';
 import * as SecureStore from "expo-secure-store";
 import {ACCESS_TOKEN} from "@/constants/StorageKeys";
 import {jwtDecode} from "jwt-decode";
@@ -7,7 +7,7 @@ import {jwtDecode} from "jwt-decode";
 const AuthContext = createContext<{
   signIn: () => Promise<void>;
   signOut: () => void;
-  session?: string | null;
+  session?: any | null;
   isLoading: boolean;
 }>({
   signIn: () => Promise.resolve(),
@@ -27,7 +27,7 @@ export function useSession() {
   return value;
 }
 
-export function SessionProvider({ children }: PropsWithChildren) {
+export function SessionProvider({children}: PropsWithChildren) {
   const [[isLoading, session], setSession] = useStorageState('session');
 
   return (
