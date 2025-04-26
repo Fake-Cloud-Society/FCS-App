@@ -9,13 +9,17 @@ import {ScrollView} from "@/components/ui/scroll-view";
 import {HStack} from "@/components/ui/hstack";
 import {Image} from "@/components/ui/image";
 import {useSession} from "@/components/ctx";
+import * as Linking from 'expo-linking';
 
 export default function Index() {
   const router = useRouter();
   const { signIn } = useSession();
 
   useEffect(() => {
-    signIn().then(() => router.replace("/dashboard/home"))
+    signIn().then(async () => {
+      const url = await Linking.getInitialURL()
+      router.replace(url ? url as any : "/dashboard/home")
+    })
   }, []);
   return (
     <SafeAreaView className="w-full h-full">
