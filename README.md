@@ -40,3 +40,10 @@ And unzip folder
 unzip my_app.zip
 ```
 Your application is universal.apk !
+
+## Tips
+
+Open app page from deep link :
+```
+npx uri-scheme open fcs://dashboard/profile --android
+```
