@@ -2,7 +2,7 @@ import {VStack} from "@/components/ui/vstack";
 import {Button, ButtonText} from "@/components/ui/button";
 import {Text} from "@/components/ui/text";
 import {Heading} from "@/components/ui/heading";
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import {useRouter} from "expo-router";
 import {SafeAreaView} from "@/components/ui/safe-area-view";
 import {ScrollView} from "@/components/ui/scroll-view";
@@ -10,17 +10,29 @@ import {HStack} from "@/components/ui/hstack";
 import {Image} from "@/components/ui/image";
 import {useSession} from "@/components/ctx";
 import * as Linking from 'expo-linking';
+import {Spinner} from "@/components/ui/spinner";
+import colors from "tailwindcss/colors"
 
 export default function Index() {
   const router = useRouter();
   const { signIn } = useSession();
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
+    setLoading(true);
     signIn().then(async () => {
       const url = await Linking.getInitialURL()
       router.replace(url ? url as any : "/dashboard/home")
-    })
+    }).finally(() => setLoading(false));
   }, []);
+
+  if (loading) {
+    return (
+      <SafeAreaView className="w-full h-full justify-center align-middle">
+        <Spinner size="large" color={colors.gray[500]}/>
+      </SafeAreaView>
+    )
+  }
   return (
     <SafeAreaView className="w-full h-full">
       <ScrollView
