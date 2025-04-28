@@ -149,7 +149,7 @@ export default function Home() {
           paddingBottom: isWeb ? 0 : 100,
           flexGrow: 1,
         }}
-        className="flex-1 mb-20 md:mb-2"
+        className="flex-1"
       >
         <VStack className="p-4 pb-0 md:px-10 md:pt-6  w-full" space="2xl">
           <Heading size="2xl" className="font-roboto">
