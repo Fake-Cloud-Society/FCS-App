@@ -8,16 +8,11 @@
     "scheme": "fcs",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
-    "ios": {
-      "supportsTablet": true,
-      "bundleIdentifier": "com.eloilfrg.fcsapp"
-    },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
-      },
-      "package": "com.eloilfrg.fcsapp"
+        "backgroundColor": "#121212"
+      }
     },
     "web": {
       "bundler": "metro",
@@ -30,9 +25,9 @@
         "expo-splash-screen",
         {
           "image": "./assets/images/splash.png",
-          "imageWidth": 200,
+          "imageWidth": 1284,
           "resizeMode": "contain",
-          "backgroundColor": "#ffffff"
+          "backgroundColor": "#121212"
         }
       ],
       [
