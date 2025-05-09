@@ -1,13 +1,16 @@
-# Welcome to Fake Cloud Society App
+# Fake Cloud Society App
 
 This is an [Expo](https://expo.dev) app
 
 ## Get started
 
-1. Start the app
-
+1. Install dependencies
    ```bash
-    npm run start
+   npm install
+   ```
+2. Start the app
+   ```bash
+    npx expo start
    ```
 
 In the output, you'll find options to open the app in a
@@ -20,10 +23,34 @@ In the output, you'll find options to open the app in a
 You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
 
 ## Build
+### Web
+Build web application
+   ```bash
+    npx expo export --platform web
+   ```
+Run the export
+   ```bash
+    npx serve dist
+   ```
 
-In order to build the application you will need an account in [Expo.dev](https://expo.dev/)
+### Mobile
+You can build locally with the *--local* option for android and iOS.
+
+Or :
+
+Build the application remotely with your [Expo.dev](https://expo.dev/) client
 
 Follow [these instructions](https://docs.expo.dev/build/setup/) to build your application using EAS
+
+#### Android
+   ```bash
+    eas build --platform android
+   ```
+
+#### iOS
+   ```bash
+    eas build --platform ios
+   ```
 
 ## Extract application from app bundle
 
