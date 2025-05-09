@@ -147,7 +147,7 @@ export default function Profile() {
   const {signOut, session} = useSession();
 
   return (
-    <VStack className="h-full w-full mb-16 md:mb-0">
+    <VStack className="h-full w-full">
       <ModalComponent showModal={showModal} setShowModal={setShowModal}/>
       <ScrollView
         showsVerticalScrollIndicator={false}

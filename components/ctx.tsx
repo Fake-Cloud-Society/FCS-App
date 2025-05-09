@@ -43,7 +43,7 @@ export function SessionProvider({children}: PropsWithChildren) {
           }
           if (token) {
             const decoded = jwtDecode(token);
-            const url = 'http://localhost:3000/users?email=' + (decoded as any).username;
+            const url = process.env.EXPO_PUBLIC_API_URL + '/users?email=' + (decoded as any).username;
             try {
               const response = await fetch(url, {
                 method: 'GET',

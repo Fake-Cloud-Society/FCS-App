@@ -53,7 +53,7 @@ export default function SignIn() {
     setValidated({emailValid: true, passwordValid: true});
     setLoading(true)
     const {email, password} = data;
-    const url = 'http://localhost:3000/auth/login';
+    const url = process.env.EXPO_PUBLIC_API_URL + '/auth/login';
     try {
       const response = await fetch(url, {
         method: 'POST',
