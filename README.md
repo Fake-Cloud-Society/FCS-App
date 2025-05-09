@@ -22,6 +22,13 @@ In the output, you'll find options to open the app in a
 
 You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
 
+## Environment
+You need to specify an environment file named .env with environment variables :
+```
+EXPO_PUBLIC_API_URL=<url-of-api>
+```
+See [.env.example](.env.example)
+
 ## Build
 ### Web
 Build web application
