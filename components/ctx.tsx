@@ -3,6 +3,7 @@ import {useStorageState} from '@/hooks/useStorageState';
 import * as SecureStore from "expo-secure-store";
 import {ACCESS_TOKEN} from "@/constants/StorageKeys";
 import {jwtDecode} from "jwt-decode";
+import {Platform} from "react-native";
 
 const AuthContext = createContext<{
   signIn: () => Promise<void>;
@@ -34,10 +35,15 @@ export function SessionProvider({children}: PropsWithChildren) {
     <AuthContext.Provider
       value={{
         signIn: async () => {
-          const token = await SecureStore.getItemAsync(ACCESS_TOKEN)
+          let token: string | null;
+          if (Platform.OS === 'web') {
+            token = localStorage.getItem(ACCESS_TOKEN);
+          } else {
+            token = await SecureStore.getItemAsync(ACCESS_TOKEN)
+          }
           if (token) {
             const decoded = jwtDecode(token);
-            const url = 'https://fcs.webservice.odeiapp.fr/users?email=' + (decoded as any).username;
+            const url = 'http://localhost:3000/users?email=' + (decoded as any).username;
             try {
               const response = await fetch(url, {
                 method: 'GET',
@@ -56,7 +62,11 @@ export function SessionProvider({children}: PropsWithChildren) {
           }
         },
         signOut: async () => {
-          await SecureStore.deleteItemAsync(ACCESS_TOKEN)
+          if (Platform.OS === 'web') {
+            localStorage.removeItem(ACCESS_TOKEN)
+          } else {
+            await SecureStore.deleteItemAsync(ACCESS_TOKEN)
+          }
           setSession(null);
         },
         session,

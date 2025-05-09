@@ -19,6 +19,8 @@ export default function Index() {
     signIn().then(async () => {
       const url = await Linking.getInitialURL()
       router.replace(url ? url as any : "/dashboard/home")
+    }).catch(() => {
+      // Do nothing
     })
   }, []);
   return (

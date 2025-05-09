@@ -15,7 +15,7 @@ import {
 import {Input, InputField, InputIcon, InputSlot} from "@/components/ui/input";
 import {ArrowLeftIcon, EyeIcon, EyeOffIcon, Icon,} from "@/components/ui/icon";
 import {Button, ButtonIcon, ButtonText} from "@/components/ui/button";
-import {Keyboard} from "react-native";
+import {Keyboard, Platform} from "react-native";
 import {Controller, useForm} from "react-hook-form";
 import {z} from "zod";
 import {zodResolver} from "@hookform/resolvers/zod";
@@ -53,7 +53,7 @@ export default function SignIn() {
     setValidated({emailValid: true, passwordValid: true});
     setLoading(true)
     const {email, password} = data;
-    const url = 'https://fcs.webservice.odeiapp.fr/auth/login';
+    const url = 'http://localhost:3000/auth/login';
     try {
       const response = await fetch(url, {
         method: 'POST',
@@ -66,7 +66,11 @@ export default function SignIn() {
         }),
       });
       const {access_token} = await response.json();
-      await SecureStore.setItemAsync(ACCESS_TOKEN, access_token);
+      if (Platform.OS === 'web') {
+        localStorage.setItem(ACCESS_TOKEN, access_token);
+      } else {
+        await SecureStore.setItemAsync(ACCESS_TOKEN, access_token);
+      }
       await signIn();
       router.replace("/dashboard/home");
     } catch (e) {
