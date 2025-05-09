@@ -79,7 +79,7 @@ export default function SignUp() {
     if (data.password === data.confirmpassword) {
       setLoading(true)
       const { email, password } = data;
-      const url = 'https://fcs.webservice.odeiapp.fr/users';
+      const url = process.env.EXPO_PUBLIC_API_URL + '/users';
       try {
         const response = await fetch(url, {
           method: 'POST',
@@ -322,7 +322,9 @@ export default function SignUp() {
 
         <VStack className="w-full my-7" space="lg">
           <Button className="w-full" onPress={handleSubmit(onSubmit)}>
-            <ButtonText className="font-medium">Sign up</ButtonText>
+            <ButtonText className="font-medium">
+              { loading ? 'Sign Up' : 'loading...'}
+            </ButtonText>
           </Button>
           <Button
             variant="outline"
@@ -343,7 +345,7 @@ export default function SignUp() {
               className="font-medium text-primary-700 group-hover/link:text-primary-600 group-hover/pressed:text-primary-700"
               size="md"
             >
-              { loading ? 'Sign Up' : 'loading...'}
+              Sign In
             </LinkText>
           </Pressable>
         </HStack>
