@@ -73,20 +73,42 @@ export default function SignUp() {
     resolver: zodResolver(signUpSchema),
   });
   const toast = useToast();
+  const [loading, setLoading] = useState(false);
 
-  const onSubmit = (data: SignUpSchemaType) => {
+  const onSubmit = async (data: SignUpSchemaType) => {
     if (data.password === data.confirmpassword) {
-      toast.show({
-        placement: "bottom right",
-        render: ({ id }) => {
-          return (
-            <Toast nativeID={id} variant="solid" action="success">
-              <ToastTitle>Success</ToastTitle>
-            </Toast>
-          );
-        },
-      });
-      reset();
+      setLoading(true)
+      const { email, password } = data;
+      const url = 'https://fcs.webservice.odeiapp.fr/users';
+      try {
+        const response = await fetch(url, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            email: email,
+            password: password,
+          }),
+        });
+        await response.json();
+        toast.show({
+          placement: "bottom right",
+          render: ({ id }) => {
+            return (
+              <Toast nativeID={id} variant="solid" action="success">
+                <ToastTitle>Success</ToastTitle>
+              </Toast>
+            );
+          },
+        });
+        reset();
+        router.replace("/auth/signin")
+      } catch (e) {
+        console.log(e);
+      } finally {
+        setLoading(false);
+      }
     } else {
       toast.show({
         placement: "bottom right",
@@ -321,7 +343,7 @@ export default function SignUp() {
               className="font-medium text-primary-700 group-hover/link:text-primary-600 group-hover/pressed:text-primary-700"
               size="md"
             >
-              Login
+              { loading ? 'Sign Up' : 'loading...'}
             </LinkText>
           </Pressable>
         </HStack>
